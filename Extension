@@ -1,0 +1,24 @@
+class TimerModel: NSObject {
+    static let sharedTimer: TimerModel = {
+        let timer = TimerModel()
+        return timer
+    }()
+    
+    var internalTimer: Timer?
+    var jobs = [() -> Void]()
+    
+    func startTimer() {
+        internalTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(doJob), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        internalTimer?.invalidate()
+    }
+    
+    @objc func doJob() {
+        //perform your task here.
+    }
+}
+
+//To start the timer --> TimerModel.sharedTimer.startTimer()
+//To stop the timer --> TimerModel.sharedTimer.stopTimer()
